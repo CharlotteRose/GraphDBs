@@ -1,0 +1,28 @@
+GRAPH DB STUDIES
+
+CREATE (node:label {property(n):<string>, property(n+1):<boolean>, property(n+2):<int>})
+  # node is data record
+  # label described the variable/node
+  # property_n:value pairs represent literal arguments that can be stored in a node
+      EXAMPLE:
+          CREATE (x:label { property1: "string", property2: 4, property3: TRUE })
+
+____ Q U E R I E S ____
+MATCH (node:label)
+  # query the graph for a node with a certain label
+WHERE node.property(n) = <value>
+  # examine nodial information to verify it matches query stipulations
+RETURN node;
+  # return the record
+      EXAMPLE:
+          MATCH (x:label) WHERE x.property1 = "string" RETURN x;
+N O T E : a create clause can create relationships AND nodes simultaneously
+
+CREATE (x:Person { name: "Scoots", from: "Texas", wantsToLearn: 4 }),
+(ir:Person { name: "Ian", from: "England", title: "author" }),
+(rvb:Person { name: "Rik", from: "Belgium", pet: "Orval" }),
+(ally:Person { name: "Allison", from: "California", hobby: "surfing" }),
+(ee)-[:KNOWS {since: 2001}]->(js),(ee)-[:KNOWS {rating: 5}]->(ir),
+(js)-[:KNOWS]->(ir),(js)-[:KNOWS]->(rvb),
+(ir)-[:KNOWS]->(js),(ir)-[:KNOWS]->(ally),
+(rvb)-[:KNOWS]->(ally)
