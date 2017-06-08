@@ -1,11 +1,16 @@
 GRAPH DB STUDIES
 
+____ B A S I C    T E R M S ____
 CREATE (node:label {property(n):<string>, property(n+1):<boolean>, property(n+2):<int>})
   # node is data record
-  # label described the variable/node
+  # label describes the variable/node. This label is a unique id for the record.
   # property_n:value pairs represent literal arguments that can be stored in a node
       EXAMPLE:
-          CREATE (x:label { property1: "string", property2: 4, property3: TRUE })
+          Abstract Example
+              CREATE (x:label { property1: "string", property2: true, property3: 4 })
+          Generic Example
+              CREATE (node1:Person { name: "Scoots", age:28, bored: false})
+
 
 ____ Q U E R I E S ____
 MATCH (node:label)
@@ -13,16 +18,31 @@ MATCH (node:label)
 WHERE node.property(n) = <value>
   # examine nodial information to verify it matches query stipulations
 RETURN node;
-  # return the record
+  # returns node that meets criteria from the query
       EXAMPLE:
-          MATCH (x:label) WHERE x.property1 = "string" RETURN x;
-N O T E : a create clause can create relationships AND nodes simultaneously
+          Abstract Example
+              MATCH (x:label) WHERE x.property1 = "string" RETURN x;
+          Generic Example
+              MATCH (node1:Person) WHERE node.name = "Scoots" RETURN node;
 
-CREATE (x:Person { name: "Scoots", from: "Texas", wantsToLearn: 4 }),
-(ir:Person { name: "Ian", from: "England", title: "author" }),
-(rvb:Person { name: "Rik", from: "Belgium", pet: "Orval" }),
-(ally:Person { name: "Allison", from: "California", hobby: "surfing" }),
-(ee)-[:KNOWS {since: 2001}]->(js),(ee)-[:KNOWS {rating: 5}]->(ir),
-(js)-[:KNOWS]->(ir),(js)-[:KNOWS]->(rvb),
-(ir)-[:KNOWS]->(js),(ir)-[:KNOWS]->(ally),
-(rvb)-[:KNOWS]->(ally)
+
+____ C L A U S E S ____
+CREATE (node(n):label { property(n): "string", property(n+1): <boolean>, property(n+2): <int>}),
+(node(n+1):label { property(n): "string", property(n+1): <boolean>, property(n+2): <int>}),
+(node(n+2): label { property(n): "string", property(n+1): <boolean>, property(n+2): <int>}),
+(node(n))-[:KNOWS {property(m):<value>}]->(node(n+1)),(node(n+2))-[:KNOWS {property2: value}]->(node(n)),
+(node(n+2))-[:KNOWS]->(node(n)),
+(node(n))-[:KNOWS]->(node(n+1))
+  # Create Clauses can create both nodes (node(n):Person)
+  # and relationships (node(n))-[:KNOWS]->(node(m))
+  # simultaneously. Note the above relationship is directional
+    EXAMPLE:
+      Abstract Example
+          CREATE (x:label {property1: "string", property2: false, property3: 7}),
+          (y:label {property1: "string", property2: true, property3: 1}),
+          (x)-[:KNOWS {property2:false}]->(y),
+          (y)-[:KNOWS]->(x)
+        Generic Example
+            CREATE (node1:Person {name: "Scoots", tall: false, age: 28}),
+            (node2:Person {name: "Samuel", pet: true, age: 3}),
+            (node2)-[:KNOWS {property3: 3}]->(node1)
