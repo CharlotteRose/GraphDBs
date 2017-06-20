@@ -42,7 +42,10 @@ CREATE (node(n):label { property(n): "string", property(n+1): <boolean>, propert
           (y:label {property1: "string", property2: true, property3: 1}),
           (x)-[:KNOWS {property2:false}]->(y),
           (y)-[:KNOWS]->(x)
-        Generic Example
-            CREATE (node1:Person {name: "Scoots", tall: false, age: 28}),
-            (node2:Person {name: "Samuel", pet: true, age: 3}),
-            (node2)-[:KNOWS {property3: 3}]->(node1)
+      Generic Example
+          CREATE (node1:Person {name:"Scoots", blonde: false, weight: 154}),
+          (node2:Person {name:"Adonis", ginger: false, weight: 200}),
+          (node1)-[:KNOWS {name:"Adonis"}]-> (node2),
+          (node1)-[:KNOWS]->(node2)
+
+===========================================================================================================

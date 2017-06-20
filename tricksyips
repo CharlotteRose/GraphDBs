@@ -1,0 +1,19 @@
+# indexes result in faster query completions
+
+CREATE INDEX ON :node(n) (property1);
+CREATE INDEX ON :node(n) (property2);
+CREATE INDEX ON :node(n+1) (property1);
+CREATE INDEX ON :node(n+1) (property2);
+CREATE INDEX ON :node(n+2) (property1);
+CREATE INDEX ON :node(n+2) (property2);
+CREATE INDEX ON :node(n+3) (property1);
+CREATE INDEX ON :node(n+3) (property2);
+
+Literal Example:
+  CREATE INDEX ON :node1(location);
+  CREATE INDEX ON :node1(type);
+  CREATE INDEX ON :node2(location);
+  CREATE INDEX ON :node2(shape);
+  CREATE INDEX ON :node3(location);
+  CREATE INDEX ON :node3(mass)
+  
